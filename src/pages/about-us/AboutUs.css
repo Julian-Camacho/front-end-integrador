@@ -1,0 +1,41 @@
+.about-us-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.about-us{
+    display: flex;
+    flex-direction: column;
+}
+
+.student{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.perfil-img{
+    padding: 0 2rem;
+    margin-top: 3rem;
+    width: 40vh;
+    border-radius: 50%;
+}
+.about-company{
+    padding:2rem;
+}
+
+@media screen and (width > 1024px){
+    .about-us{
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-top: 5rem;
+        max-width: 80%;
+    }
+    .student-img{
+        margin-top: 0;
+    }
+    .course-detail{
+        flex-direction: row;
+        align-items: start;
+    }
+}

@@ -1,0 +1,174 @@
+.admin-users-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    
+
+    .add-btn-container{
+        display: block;
+        text-align: left;
+        padding-left: 5rem;
+        padding-top: 2rem;
+        padding-bottom:.5rem;
+        width: 100%;
+        max-width:1024px ;
+        
+
+        button{
+            padding: .5rem 1rem;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+    }
+}
+
+.table-container{
+    overflow-x: auto;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 2rem 2rem 2rem;
+
+}
+
+.admin-users-table{
+    width:100%;
+    border-collapse: collapse;
+    font-family: var(--secondary-font);
+    max-width: 1024px;
+    overflow-x: auto;
+}
+
+.admin-users-table tbody tr:nth-child(odd){ 
+    background-color: #999;
+}
+
+.admin-users-table th, .admin-users-table td{
+    border: 2px solid var(--primary-color);
+}   
+
+.admin-users-table th{
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    font-weight: normal;
+}
+
+.admin-users-table td{
+    font-size: .75rem;
+    padding: 8px;
+}
+
+.user-avatar{
+    width: 60px;
+    height: 60px;
+    object-fit: conver;
+    border-radius: 50%;
+}
+
+.td-name{
+    text-align: center;
+    font-weight: 600;
+}
+
+.td-description{
+    min-width: 200px;
+}
+
+.td-description, .td-price, .td-date, .td-name{
+    color: black;
+}
+
+.td-actions{
+    text-align: center;
+}
+
+.td-button-edit, .td-button-delete{
+    padding: .25rem;
+    margin: .25rem;
+    color: var(--text-color);
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.td-button-delete{
+    background-color: #9d0101;
+    &:hover{
+        background-color: #ff3d3d;
+    }
+}
+.td-button-edit{
+    background-color: var(--primary-color);
+    &:hover{
+        background-color: #6057e0;
+    }
+}
+
+tfoot{
+    text-align: right;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.input-group{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;    
+}
+
+.form-edit{
+    background-color: var(--secondary-color);
+}
+
+.form-control{
+    padding:.5rem;
+    background-color: white;
+    color: black;
+}
+
+.text-area{
+    resize: none;
+}
+.btn-submit-container{
+    display: flex;
+    justify-content: right;
+    gap: .5rem;
+    .submit-btn, .cancel-btn, .edit-btn{
+        background-color: var(--secondary-color);
+        padding: .5rem 1.5rem;
+        margin-top: .5rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:hover{
+            background-color: rgb(108, 196, 167);
+        }
+    }
+    .cancel-btn{
+        background-color: crimson;
+        padding: .5rem 1rem;
+
+        &:hover{
+            background-color: rgb(255, 92, 125);
+        }
+    }
+}
+.loader-container{
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loader{
+    color: var(--primary-color);
+    opacity: .5;
+    font-size: 75px;
+}

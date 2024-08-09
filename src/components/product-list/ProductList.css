@@ -1,0 +1,6 @@
+.product-list-container {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(375px,100%), 1fr));
+    justify-items: center;
+}

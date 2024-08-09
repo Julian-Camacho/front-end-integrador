@@ -1,0 +1,129 @@
+.card-wrapper{
+    display: flex;
+    justify-content: center;
+    width: min(100%, 375px);
+    padding: 10px;
+}
+
+.card{
+    width: 100%;
+    border: 1px solid #c4c4c4;
+    border-radius: 4px;
+    overflow: hidden; 
+    font-family: 'Poppins', sans-serif;
+    color: var(--font-card-color);
+    font-size: 14px;
+    transition: all .4s ease-in-out;
+    cursor: pointer;
+}
+
+.card:hover{
+    transform: scale(1.02);
+    box-shadow: 0 0 10px #00000066;
+}
+
+.card-header{
+    height:235px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.card-header .card-img{
+    width: 100%;
+    position: absolute;
+    object-fit: cover;
+    object-position: top;
+    transition: opacity .3s ease-in-out;
+}
+
+.card-top{
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-main{
+    padding:15px;
+    height: 277px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-image-1{
+    width: 100%;
+    height: 235px;
+    object-fit: cover;
+}
+
+.card-title{
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 15px;
+}
+
+.card-description{
+    margin: .5rem 0;
+    text-overflow: ellipsis; 
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+}
+
+.card-price{
+    text-align: right;
+    margin-top: auto;
+}
+
+.card-price .price{
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.card-price .normal-price{
+    font-size: 1rem;
+    opacity: .6;
+    text-decoration: line-through;
+}
+
+.card-price small{
+    font-size: 10px;
+}
+
+.card-average{
+    margin-bottom:15px;
+}
+
+.card-footer{
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+    padding-top: 0;
+    gap: 1rem;
+}
+
+.add-to-cart, .more-info{
+    border: none;
+    outline: none;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items:center;
+    justify-content: center;
+    gap:8px;
+    cursor:pointer;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    transition: all .3s ease-in-out;
+    flex: 1;
+}
+
+.more-info a{
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.add-to-cart:hover, .more-info:hover{
+    background-color: var(--secondary-color);
+}
