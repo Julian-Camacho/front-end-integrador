@@ -136,7 +136,7 @@ export default function Register() {
             type="password"
             {...register("password", {
               required: true,
-              minLength: 8,
+              minLength: 4,
               maxLength: 30,
             })}
             name="password"
@@ -159,7 +159,7 @@ export default function Register() {
             type="password"
             {...register("repeatPassword", {
               required: true,
-              minLength: 8,
+              minLength: 4,
               maxLength: 30,
             })}
             name="repeatPassword"

@@ -1,6 +1,6 @@
 import './ProductDetail.css'
 import { useEffect, useState } from 'react'
-import { useOrder } from '../../context/Context'
+import { useOrder } from '../../context/OrderContext'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'

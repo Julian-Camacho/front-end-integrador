@@ -1,7 +1,7 @@
 import "./Sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { useOrder } from "../../context/Context";
+import { useOrder } from "../../context/OrderContext";
 
 export default function Sidebar() {
   const { order, total, handleChanqeQuantity, removeItem, sidebarToggle } =

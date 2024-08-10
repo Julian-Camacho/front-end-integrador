@@ -3,12 +3,11 @@ import { NavLink, useLocation } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { useOrder } from "../../context/Context";
+import { useOrder } from "../../context/OrderContext";
 import Logo from "../../assets/Fondos/logo.png";
-
+import { useUser } from "../../context/UserContext";
 
 export default function Header() {
-    
   const burgerMenu = useRef(null);
   const location = useLocation();
 
@@ -23,7 +22,7 @@ export default function Header() {
     const handleRouteChange = () => {
       burgerMenu.current.checked = true;
       burgerMenu.current.checked = false;
-    }
+    };
 
     // Event listener para el resize de la ventana
     checkScreenSize();
@@ -31,10 +30,11 @@ export default function Header() {
 
     // Deschequear el checkbox para el cambio de ruta
     handleRouteChange();
-
   }, [location]);
 
-  const {toggleSidebarOrder, count} = useOrder();
+  const { toggleSidebarOrder, count } = useOrder();
+
+  const { user, logout } = useUser();
 
   return (
     <header className="main-header">
@@ -47,10 +47,10 @@ export default function Header() {
       <label htmlFor="check-menu" className="burger-menu">
         <div className="burger-line"></div>
       </label>
-      <NavLink to='/'>
-      <div className="header-logo">
-        <img src= {Logo} alt="Logo" />
-      </div>
+      <NavLink to="/">
+        <div className="header-logo">
+          <img src={Logo} alt="Logo" />
+        </div>
       </NavLink>
       <nav className="nav-menu">
         <ul className="nav-list">
@@ -79,25 +79,44 @@ export default function Header() {
               <span>Registrarse</span>
             </NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink to="/admin-users" className="nav-link">
-              <span>Administrar Usuarios</span>
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink to="/admin-product" className="nav-link">
-              <span>Administrar Productos</span>
-            </NavLink>
-          </li>
+          {user?.role === "ADMIN_ROLE" && (
+            <li className="nav-item">
+              <NavLink to="/admin-users" className="nav-link">
+                <span>Administrar Usuarios</span>
+              </NavLink>
+            </li>
+          )}
+          {user?.role === "ADMIN_ROLE" && (
+            <li className="nav-item">
+              <NavLink to="/admin-product" className="nav-link">
+                <span>Administrar Productos</span>
+              </NavLink>
+            </li>
+          )}
         </ul>
       </nav>
       <div className="user-info">
-        <NavLink to='/register' className="nav-link user-info">
+        <div className="nav-item">
+          {user ? (
+            <NavLink className="nav-link" onClick={logout}>
+              <span>Logout</span>
+            </NavLink>
+          ) : (
+            <NavLink to="/login" className="nav-link">
+              <span>Login</span>
+            </NavLink>
+          )}
+        </div>
+        {/* <NavLink to="/register" className="nav-link user-info">
           <div className="user-data">
             <div className="user-name">Julián Camacho</div>
-            <img className="user-image" src="https://imgur.com/OyTz80z.jpg" alt="perfil" />
+            <img
+              className="user-image"
+              src="https://imgur.com/OyTz80z.jpg"
+              alt="perfil"
+            />
           </div>
-        </NavLink>
+        </NavLink> */}
         <div
           className={`user-cart-container ${count < 1 ? "" : "show-circle"}`}
           data-count={count}

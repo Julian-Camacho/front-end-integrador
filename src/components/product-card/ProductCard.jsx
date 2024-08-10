@@ -5,7 +5,7 @@ import {
   faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { useOrder } from "../../context/Context";
+import { useOrder } from "../../context/OrderContext";
 import removeDecimals from "../../services/utils/NumFormat";
 import { formatTimestampToUserDate } from "../../services/utils/DateFormat";
 

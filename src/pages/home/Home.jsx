@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTruckFast, faBoxesPacking } from "@fortawesome/free-solid-svg-icons";
 import { faCreditCardAlt } from '@fortawesome/free-regular-svg-icons';
 import ProductList from '../../components/product-list/ProductList';
-import Carousel from 'react-bootstrap/Carousel';
 
 export default function Home(){
     
@@ -14,7 +13,7 @@ export default function Home(){
         <>
             <section className="main-banner">
                 <h1 className="main-title">BIENVENIDOS</h1>
-                <div class="slider">
+                <div className="slider">
                     <ul>
                         <li><img src="https://imgur.com/ZTFpS9m.jpg" alt="Perchero"/></li>
                         <li><img src="https://imgur.com/6h3wNFC.jpg" alt="Perchero-2"/></li>
