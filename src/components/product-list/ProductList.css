@@ -4,3 +4,10 @@
     grid-template-columns: repeat(auto-fit, minmax(min(375px,100%), 1fr));
     justify-items: center;
 }
+
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 1rem 0;
+    color: var(--primary-color);
+}

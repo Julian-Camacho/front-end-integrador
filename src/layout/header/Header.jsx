@@ -93,7 +93,7 @@ export default function Header() {
             <div className="user-name">{user.fullName}</div>
             <img
               className="user-image"
-              src={user.picture}
+              src={user.avatar}
               alt={user.fullName}
             />
           </div>

@@ -43,6 +43,7 @@ nav.nav-menu{
    background-color: var(--primary-color);
    overflow: hidden;
    transition: all .3s ease-in-out;
+   align-items: center;
 }
 
 ul.nav-list{
@@ -59,7 +60,7 @@ ul.nav-list{
     align-items: center;
 }
 
-.nav-item a{
+.nav-link{
     display: inline-block;
     width: auto;
     padding: 2rem 1.5rem;
@@ -68,7 +69,7 @@ ul.nav-list{
     text-align: center;
 }
 
-.nav-item a:hover {
+.nav-link:hover {
     color: var(--secondary-color);
 }
 
@@ -177,7 +178,7 @@ body:has(.check-menu:checked){
 
 .check-menu:checked~nav.nav-menu{
     height: 150vh;
-    width: 150vh;
+    width: 250vh;
 }
 
 label.burger-menu{
@@ -259,33 +260,8 @@ label.burger-menu{
             flex-direction: row;
             padding: 0;
         }
-        .nav-item{
-            border: none;
-        }
-        .nav-item a{
-            padding: 0 1rem;
-            display: flex;
-            align-items: center;
-            transition: background-color .3s;
-        }
-    }
-
-    .nav-item a span{
-        position: relative;
-        padding: 5px;
     }
     
-    .nav-item a span::before{
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 5px;
-        bottom: 0;
-        left: 10%;
-        background-color: var(--secondary-color); 
-        transition: width 0.3s ease-in-out; 
-    }
-
     .our-services{
         flex-direction: row;
     }

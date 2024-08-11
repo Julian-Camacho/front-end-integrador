@@ -7,7 +7,6 @@ import {
 import { Link } from "react-router-dom";
 import { useOrder } from "../../context/OrderContext";
 import removeDecimals from "../../services/utils/NumFormat";
-import { formatTimestampToUserDate } from "../../services/utils/DateFormat";
 
 export default function ProductCard({ product }) {
   const { addProductToOrder } = useOrder();
@@ -26,7 +25,7 @@ export default function ProductCard({ product }) {
           <div className="card-top">
             <h4 className="card-category">{product.name}</h4>
             <span className="card-date">
-              {formatTimestampToUserDate(product.createdAt)}
+              {product.createdAt}
             </span>
           </div>
           <h3 className="card-title">{product.name}</h3>
@@ -40,9 +39,10 @@ export default function ProductCard({ product }) {
             className="add-to-cart"
             onClick={() => addProductToOrder(product)}
           >
-            Añadir al Carrito<FontAwesomeIcon icon={faCartShopping} />
+            Añadir al Carrito
+            <FontAwesomeIcon icon={faCartShopping} />
           </button>
-          <Link to={`/product-detail/${product.id}`}>
+          <Link to={`/product-detail/${product._id}`}>
             <button className="more-info">
               Más info <FontAwesomeIcon icon={faCircleInfo} />
             </button>

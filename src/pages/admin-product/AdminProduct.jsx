@@ -8,17 +8,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-  formatTimestampToInputDate,
-  formatTimestampToUserDate,
-} from "../../services/utils/DateFormat";
 import Modal from "../../layout/modal/Modal";
-import axios from "axios";
 import Swal from "sweetalert2";
-
-const baseURL = "https://6622ed3e3e17a3ac846e404e.mockapi.io/api";
+import useApi from "../../services/interceptor/Interceptor";
 
 export default function AdminProduct() {
+  const api = useApi();
   const [products, setProducts] = useState([]);
   const {
     register,
@@ -30,6 +25,7 @@ export default function AdminProduct() {
   const [isOpen, setIsOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState([]);
 
   function handleClose() {
     setIsOpen(false);
@@ -43,6 +39,7 @@ export default function AdminProduct() {
 
   useEffect(() => {
     getProducts();
+    getCategories();
   }, []);
 
   if (loading) {
@@ -55,8 +52,8 @@ export default function AdminProduct() {
 
   async function getProducts() {
     try {
-      const response = await axios.get(`${baseURL}/products`);
-      const products = response.data;
+      const response = await api.get(`/products`);
+      const products = response.data.products;
       setProducts(products);
       setLoading(false);
     } catch (error) {
@@ -68,13 +65,17 @@ export default function AdminProduct() {
     setIsEditing(true);
 
     // Setear formulario con los datos de mi producto
-    setValue("id", producto.id);
+    setValue("id", producto._id);
     setValue("name", producto.name);
     setValue("price", producto.price);
-    setValue("picture", producto.picture);
-    setValue("category", producto.category);
+    setValue(
+      "picture",
+      producto.picture
+        ? producto.picture
+        : "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png"
+    );
     setValue("description", producto.description);
-    setValue("createdAt", formatTimestampToInputDate(producto.createdAt));
+    setValue("createdAt", producto.createdAt);
     handleShow();
   }
 
@@ -95,7 +96,7 @@ export default function AdminProduct() {
 
   async function createProduct(product) {
     try {
-      const newProduct = await axios.post(`${baseURL}/products`, product);
+      const newProduct = await api.post(`/products`, product);
       getProducts();
       Swal.fire({
         icon: "success",
@@ -115,7 +116,8 @@ export default function AdminProduct() {
 
   async function updateProduct(product) {
     try {
-      await axios.put(`${baseURL}/products/${product.id}`, product);
+      const id = product.id;
+      await api.put(`/products/${id}`, product);
       getProducts();
       setIsEditing(false);
       reset();
@@ -126,6 +128,7 @@ export default function AdminProduct() {
         confirmButtonColor: "#2b285b",
       });
     } catch (error) {
+      console.log(error);
       Swal.fire({
         icon: "error",
         title: "¡Algo salió mal!",
@@ -149,7 +152,7 @@ export default function AdminProduct() {
       })
         .then(async (result) => {
           if (result.isConfirmed) {
-            await axios.delete(`${baseURL}/products/${id}`);
+            await api.delete(`/products/${id}`);
             getProducts();
             Swal.fire({
               icon: "success",
@@ -174,6 +177,18 @@ export default function AdminProduct() {
     }
   }
 
+  async function getCategories() {
+    try {
+      const response = await api.get(`/categories`);
+
+      const categoriesDB = response.data.categories;
+
+      setCategories(categoriesDB);
+    } catch (error) {
+      console.log("Error al obtener categorias:", error);
+    }
+  }
+
   return (
     <>
       <div className="admin-products-container">
@@ -194,7 +209,7 @@ export default function AdminProduct() {
             </thead>
             <tbody>
               {products.map((product) => (
-                <tr key={product.id}>
+                <tr key={product._id}>
                   <td className="td-image">
                     <img
                       className="product-image"
@@ -204,9 +219,7 @@ export default function AdminProduct() {
                   </td>
                   <td className="td-name">{product.name}</td>
                   <td className="td-description">{product.description}</td>
-                  <td className="td-date">
-                    {formatTimestampToUserDate(product.createdAt)}
-                  </td>
+                  <td className="td-date">{product.createdAt}</td>
                   <td className="td-price">${product.price}</td>
                   <td className="td-actions">
                     <button
@@ -218,7 +231,7 @@ export default function AdminProduct() {
                     <button
                       className="td-button-delete"
                       onClick={() => {
-                        deleteProduct(product.id);
+                        deleteProduct(product._id);
                       }}
                     >
                       <FontAwesomeIcon icon={faTrash} />
@@ -229,9 +242,7 @@ export default function AdminProduct() {
             </tbody>
             <tfoot>
               <tr>
-                <td colSpan="6">
-                  Panel de administración de productos.
-                </td>
+                <td colSpan="6">Panel de administración de productos.</td>
               </tr>
             </tfoot>
           </table>
@@ -304,12 +315,11 @@ export default function AdminProduct() {
                 className="form-control"
                 {...register("category", { required: faTruckMedical })}
               >
-                <option value="top-fem"> Remeras Femeninas </option>
-                <option value="bot-fem"> Pantalones Femeninas </option>
-                <option value="cal-fem"> Calzado Femenino </option>
-                <option value="top-men"> Remeras Masculinas </option>
-                <option value="bot-men"> Pantalones Masculinos </option>
-                <option value="cal-men"> Calzado Masculino </option>
+                {categories.map((category) => (
+                  <option value={category._id} key={category._id}>
+                    {category.viewValue}
+                  </option>
+                ))}
               </select>
               {errors.category?.type === "required" && (
                 <span className="input-error">El campo es requerido</span>

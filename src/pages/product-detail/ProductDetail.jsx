@@ -7,7 +7,7 @@ import Swal from 'sweetalert2'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
-const baseUrl= 'https://6622ed3e3e17a3ac846e404e.mockapi.io/api'
+const baseUrl= import.meta.env.VITE_SERVER_URL
 
 
 export default function ProductDetail(){
@@ -33,8 +33,7 @@ export default function ProductDetail(){
     async function getProductById(id){
         try {
             const response = await axios.get(`${baseUrl}/products/${id}`);
-            
-            setProduct(response.data)
+            setProduct(response.data.prod)
             setLoading(false);
         } catch (error) {
             Swal.fire({

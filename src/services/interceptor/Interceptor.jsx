@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Swal from "sweetalert2";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_URL, // Cambiar la url por la misma que se usa en el backend
+  baseURL: import.meta.env.VITE_SERVER_URL, 
 });
 
 const useApi = () => {

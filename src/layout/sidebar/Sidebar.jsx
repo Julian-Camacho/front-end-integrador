@@ -14,7 +14,7 @@ export default function Sidebar() {
         <ul className="order-list">
           {order.map((product) => {
             return (
-              <li className="order-item" key={product.id}>
+              <li className="order-item" key={product._id}>
                 <img
                   className="order-picture"
                   src={
@@ -32,7 +32,7 @@ export default function Sidebar() {
                     className="order-quantity-input"
                     value={product.quantity}
                     onChange={(evt) =>
-                      handleChanqeQuantity(product.id, evt.target.value)
+                      handleChanqeQuantity(product._id, evt.target.value)
                     }
                     min={1}
                     max={100}
@@ -45,7 +45,7 @@ export default function Sidebar() {
                   <FontAwesomeIcon
                     icon={faTrash}
                     title="Eliminar producto"
-                    onClick={() => removeItem(product.id)}
+                    onClick={() => removeItem(product._id)}
                   />
                 </div>
               </li>

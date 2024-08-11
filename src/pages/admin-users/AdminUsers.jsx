@@ -3,17 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faSpinner, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
-import {
-  formatTimestampToInputDate,
-  formatTimestampToUserDate,
-} from "../../services/utils/DateFormat";
 import Modal from "../../layout/modal/Modal";
 import Swal from "sweetalert2";
-
-const baseURL = "https://6622ed3e3e17a3ac846e404e.mockapi.io/api";
+import useApi from "../../services/interceptor/Interceptor";
 
 export default function AdminUsers() {
+  const api = useApi();
   const [users, setUsers] = useState([]);
   const {
     register,
@@ -51,8 +46,8 @@ export default function AdminUsers() {
 
   async function getUsers() {
     try {
-      const response = await axios.get(`${baseURL}/users`);
-      const usuarios = response.data;
+      const response = await api.get(`/users`);
+      const usuarios = response.data.users;
       setUsers(usuarios);
       setLoading(false);
     } catch (error) {
@@ -64,12 +59,12 @@ export default function AdminUsers() {
     setIsEditing(true);
 
     // Setear formulario con los datos de mi producto
-    setValue("id", usuario.id);
+    setValue("id", usuario._id);
     setValue("avatar", usuario.avatar);
     setValue("fullName", usuario.fullName);
     setValue("email", usuario.email);
     setValue("phone", usuario.phone);
-    setValue("bornDate", formatTimestampToInputDate(usuario.bornDate));
+    setValue("bornDate", usuario.bornDate);
 
     handleShow();
   }
@@ -90,7 +85,7 @@ export default function AdminUsers() {
 
   async function createUser(usuario) {
     try {
-      const newUser = await axios.post(`${baseURL}/users`, usuario);
+      const newUser = await api.post(`/users`, usuario);
       getUsers();
       Swal.fire({
         icon: "success",
@@ -110,8 +105,7 @@ export default function AdminUsers() {
 
   async function updateUser(user) {
     try {
-      await axios.put(`${baseURL}/users/${user.id}`, user);
-
+      await api.put(`/users/${user.id}`, user);
       getUsers();
       setIsEditing(false);
       reset();
@@ -145,7 +139,7 @@ export default function AdminUsers() {
       })
         .then(async (result) => {
           if (result.isConfirmed) {
-            await axios.delete(`${baseURL}/users/${id}`);
+            await api.delete(`/users/${id}`);
             getUsers();
             Swal.fire({
               icon: "success",
@@ -190,19 +184,21 @@ export default function AdminUsers() {
             </thead>
             <tbody>
               {users.map((user) => (
-                <tr key={user.id}>
+                <tr key={user._id}>
                   <td className="td-avatar">
-                  <img
+                    <img
                       className="user-avatar"
-                      src= {user.avatar ? user.avatar : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" }
-                      alt= {user.fullName}
+                      src={
+                        user.avatar
+                          ? user.avatar
+                          : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                      }
+                      alt={user.fullName}
                     />
                   </td>
                   <td className="td-name">{user.fullName}</td>
                   <td className="td-email">{user.email}</td>
-                  <td className="td-date">
-                    {formatTimestampToUserDate(user.bornDate)}
-                  </td>
+                  <td className="td-date">{user.bornDate}</td>
                   <td className="td-phone">{user.phone}</td>
                   <td className="td-actions">
                     <button
@@ -214,7 +210,7 @@ export default function AdminUsers() {
                     <button
                       className="td-button-delete"
                       onClick={() => {
-                        deleteUser(user.id);
+                        deleteUser(user._id);
                       }}
                     >
                       <FontAwesomeIcon icon={faTrash} />
@@ -283,6 +279,28 @@ export default function AdminUsers() {
               )}
               {errors.email?.type === "pattern" && (
                 <span className="input-error">Ingrese un email válido</span>
+              )}
+            </div>
+            <div className="input-group">
+              <label htmlFor="email">Contraseña</label>
+              <input
+                type="password"
+                className="form-control"
+                {...register("password", {
+                  required: true,
+                  minLength: 4,
+                })}
+                name="password"
+                id="password"
+                placeholder="Ingrese su contraseña"
+              />
+              {errors.email?.type === "required" && (
+                <span className="input-error">El campo es requerido</span>
+              )}
+              {errors.email?.type === "pattern" && (
+                <span className="input-error">
+                  Ingrese una contraseña válida
+                </span>
               )}
             </div>
             <div className="input-group">

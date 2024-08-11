@@ -50,10 +50,12 @@ export const OrderProvider = ({ children }) => {
   function addProductToOrder(producto) {
     // Buscar en la orden si existe el producto y si existe añadimos 1 a quantity. Si no existe lo añadimos al array
 
-    const product = order.find((prod) => prod.id === producto.id);
+
+    const product = order.find((prod) => prod._id === producto._id);
+
 
     if (product) {
-      handleChanqeQuantity(product.id, product.quantity + 1);
+      handleChanqeQuantity(product._id, product.quantity + 1);
     } else {
       producto.quantity = 1;
 
@@ -80,7 +82,7 @@ export const OrderProvider = ({ children }) => {
 
   function handleChanqeQuantity(id, quantity) {
     const updatedOrder = order.map((item) => {
-      if (item.id === id) {
+      if (item._id === id) {
         item.quantity = +quantity;
       }
       return item;
@@ -119,7 +121,7 @@ export const OrderProvider = ({ children }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         const updOrder = order.filter(
-          (prod) => prod.id !== id
+          (prod) => prod._id !== id
         ); /* Todos los productos devuelve menos cuando el id del producto es distinto al recibido (el que quiero eliminar) ya que devuelve false */
         setOrder(updOrder);
         localStorage.setItem("order", JSON.stringify(updOrder));
