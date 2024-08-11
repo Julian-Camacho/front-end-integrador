@@ -50,7 +50,7 @@ a {
     font-weight: bold;
     border-radius: 7px;
     color: #f9faf8;
-    background-color: #1f2937;
+    background-color: var(--secondary-color);
     border: none;
 }
 

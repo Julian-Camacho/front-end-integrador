@@ -56,11 +56,12 @@ ul.nav-list{
 
 .nav-item{
     display: flex;
+    align-items: center;
 }
 
 .nav-item a{
     display: inline-block;
-    width: 100%;
+    width: auto;
     padding: 2rem 1.5rem;
     text-decoration: none;
     color: var(--text-color);
@@ -69,6 +70,14 @@ ul.nav-list{
 
 .nav-item a:hover {
     color: var(--secondary-color);
+}
+
+.user-login{
+    display: flex;
+    align-items: center;
+    .nav-link{
+        padding: 0.5rem;
+    };
 }
 
 .user-info{

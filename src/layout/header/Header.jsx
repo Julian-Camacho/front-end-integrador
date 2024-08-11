@@ -69,16 +69,6 @@ export default function Header() {
               <span>Contacto</span>
             </NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink to="/login" className="nav-link">
-              <span>Iniciar Sesión</span>
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink to="/register" className="nav-link">
-              <span>Registrarse</span>
-            </NavLink>
-          </li>
           {user?.role === "ADMIN_ROLE" && (
             <li className="nav-item">
               <NavLink to="/admin-users" className="nav-link">
@@ -98,13 +88,28 @@ export default function Header() {
       <div className="user-info">
         <div className="nav-item">
           {user ? (
+            <>
+            <div className="user-data">
+            <div className="user-name">{user.fullName}</div>
+            <img
+              className="user-image"
+              src={user.picture}
+              alt={user.fullName}
+            />
+          </div>
             <NavLink className="nav-link" onClick={logout}>
               <span>Logout</span>
             </NavLink>
+            </>
           ) : (
-            <NavLink to="/login" className="nav-link">
-              <span>Login</span>
-            </NavLink>
+            <div className="user-login">
+              <NavLink to="/login" className="nav-link">
+                <span>Login</span>
+              </NavLink>
+              <NavLink to="/register" className="nav-link">
+                <span>Register</span>
+              </NavLink>
+            </div>
           )}
         </div>
         {/* <NavLink to="/register" className="nav-link user-info">

@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     background-color: var(--background-color);
-    height: 100vh;
 }
 
 .form-register-container{

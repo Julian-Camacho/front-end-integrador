@@ -1,11 +1,9 @@
-.about-us-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 .about-us{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
 }
 
 .student{
@@ -19,8 +17,16 @@
     width: 40vh;
     border-radius: 50%;
 }
-.about-company{
+.perfil{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    gap: 1rem;
+}
+.about{
     padding:2rem;
+    gap: 1rem;
 }
 
 @media screen and (width > 1024px){
