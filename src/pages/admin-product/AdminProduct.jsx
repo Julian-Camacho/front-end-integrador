@@ -40,6 +40,7 @@ export default function AdminProduct() {
   useEffect(() => {
     getProducts();
     getCategories();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) {

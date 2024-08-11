@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Swal from "sweetalert2";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_URL, 
+  baseURL: import.meta.env.VITE_SERVER_URL,
 });
 
 const useApi = () => {
@@ -38,7 +38,7 @@ const useApi = () => {
       api.interceptors.request.eject(requestInterceptor);
       api.interceptors.response.eject(responseInterceptor);
     };
-  }, [token]);
+  }, [token, logout]);
 
   return api;
 };
