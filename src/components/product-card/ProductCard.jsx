@@ -17,7 +17,7 @@ export default function ProductCard({ product }) {
         <div className="card-header">
           <img
             className="card-img card-image-1"
-            src={product.picture}
+            src={`http://localhost:3000/${product.picture}`}
             alt={product.name}
           />
         </div>

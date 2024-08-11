@@ -49,7 +49,7 @@ export default function ProductDetail(){
             <div className="product-detail-container">
                 <div className="product-detail">
                     <div className="product-picture">
-                        <img src={product?.picture} alt={product?.name}/>
+                        <img src={`http://localhost:3000/${product?.picture}`} alt={product?.name}/>
                     </div>
                     <div className="about-product">
                         <h2>{product?.name}</h2>

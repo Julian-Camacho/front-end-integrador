@@ -17,10 +17,7 @@ export default function Sidebar() {
               <li className="order-item" key={product._id}>
                 <img
                   className="order-picture"
-                  src={
-                    product.picture ??
-                    "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png"
-                  }
+                  src={`http://localhost:3000/${product.picture}`}
                   alt=""
                 />
                 <div className="order-item-name" title={product.name}>

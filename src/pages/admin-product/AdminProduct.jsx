@@ -40,7 +40,7 @@ export default function AdminProduct() {
   useEffect(() => {
     getProducts();
     getCategories();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) {
@@ -69,29 +69,31 @@ export default function AdminProduct() {
     setValue("id", producto._id);
     setValue("name", producto.name);
     setValue("price", producto.price);
-    setValue(
-      "picture",
-      producto.picture
-        ? producto.picture
-        : "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png"
-    );
+    setValue("category", producto.category._id);
+    setValue("picture", producto.picture.length ? producto.picture : undefined);
     setValue("description", producto.description);
     setValue("createdAt", producto.createdAt);
     handleShow();
   }
 
   function onSubmit(data) {
-    console.log(data);
+    
+    console.log(data.picture[0]);
     reset();
     handleClose();
-
-    data.createdAt = new Date(data.createdAt).getTime();
-    data.price = +data.price;
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("price", +data.price);
+    formData.append("category", data.category);
+    formData.append("picture", data.picture[0]);
+    formData.append("description", data.description);
+    formData.append("createdAt", new Date(data.createdAt).getTime());
+    formData.append("id", data.id);
 
     if (data.id) {
-      updateProduct(data);
+      updateProduct(formData);
     } else {
-      createProduct(data);
+      createProduct(formData);
     }
   }
 
@@ -117,7 +119,7 @@ export default function AdminProduct() {
 
   async function updateProduct(product) {
     try {
-      const id = product.id;
+      const id = product.get("id")
       await api.put(`/products/${id}`, product);
       getProducts();
       setIsEditing(false);
@@ -214,7 +216,7 @@ export default function AdminProduct() {
                   <td className="td-image">
                     <img
                       className="product-image"
-                      src={product.picture}
+                      src={`http://localhost:3000/${product.picture}`}
                       alt="Producto"
                     />
                   </td>
@@ -348,14 +350,10 @@ export default function AdminProduct() {
               />
             </div>
             <div className="input-group">
-              <label htmlFor="image" className="form-label">
-                Imagen (URL)
+              <label htmlFor="picture" className="form-label">
+                Imagen
               </label>
-              <input
-                type="url"
-                className="form-control"
-                {...register("picture")}
-              />
+              <input type="file" accept="image/*" className="form-control" {...register("picture")} />
             </div>
             <div className="btn-submit-container">
               <button className="cancel-btn" onClick={handleClose}>

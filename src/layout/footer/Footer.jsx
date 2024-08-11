@@ -17,7 +17,7 @@ export default function Footer() {
                 <a className="footer-social-link" href="https://mail.google.com/mail/u/0/#inbox" target="_blank"><FontAwesomeIcon icon={faEnvelope} size="2xl" /></a>
             </section>
             <section className="footer-section footer-contact">
-                <label className="newsletter">¡Suscribete al Newsletter!</label>
+                <label className="newsletter">¡Suscribete!</label>
                 <div className="suscribe">
                     <input className="email" type="email" />
                     <button className="btn-newsletter" type="submit"> <FontAwesomeIcon icon={faPaperPlane} /> </button>
