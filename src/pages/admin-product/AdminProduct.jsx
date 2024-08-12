@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import Modal from "../../layout/modal/Modal";
 import Swal from "sweetalert2";
 import useApi from "../../services/interceptor/Interceptor";
+import { formatTimestampToUserDate, formatTimestampToInputDate } from "../../services/utils/DateFormat";
 
 export default function AdminProduct() {
   const api = useApi();
@@ -72,7 +73,7 @@ export default function AdminProduct() {
     setValue("category", producto.category._id);
     setValue("image", producto.image);
     setValue("description", producto.description);
-    setValue("createdAt", producto.createdAt);
+    setValue("createdAt", formatTimestampToInputDate(producto.createdAt));
     handleShow();
   }
 
@@ -225,7 +226,7 @@ export default function AdminProduct() {
                   </td>
                   <td className="td-name">{product.name}</td>
                   <td className="td-description">{product.description}</td>
-                  <td className="td-date">{product.createdAt}</td>
+                  <td className="td-date">{formatTimestampToUserDate(product.createdAt)}</td>
                   <td className="td-price">${product.price}</td>
                   <td className="td-actions">
                     <button

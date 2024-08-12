@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import Modal from "../../layout/modal/Modal";
 import Swal from "sweetalert2";
 import useApi from "../../services/interceptor/Interceptor";
+import { formatTimestampToUserDate, formatTimestampToInputDate } from "../../services/utils/DateFormat";
 
 export default function AdminUsers() {
   const api = useApi();
@@ -65,7 +66,7 @@ export default function AdminUsers() {
     setValue("fullName", usuario.fullName);
     setValue("email", usuario.email);
     setValue("phone", usuario.phone);
-    setValue("bornDate", usuario.bornDate);
+    setValue("bornDate", formatTimestampToInputDate(usuario.bornDate));
 
     handleShow();
   }
@@ -74,7 +75,9 @@ export default function AdminUsers() {
     reset();
     handleClose();
 
-    console.log(data);
+    console.log();
+
+    const bornDate = new Date(data.bornDate).getTime();
 
     const formData = new FormData();
     formData.append("image", data.image[0]);
@@ -82,7 +85,7 @@ export default function AdminUsers() {
     formData.append("email", data.email);
     formData.append("password", data.password);
     formData.append("phone", +data.phone);
-    formData.append("bornDate", new Date(data.bornDate).getTime());
+    formData.append("bornDate", bornDate);
     formData.append("id", data.id);
 
     if (data.id) {
@@ -204,7 +207,7 @@ export default function AdminUsers() {
                       className="user-avatar"
                       src={
                         user.image
-                          ? user.image
+                          ? `http://localhost:3000/${user.image}`
                           : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                       }
                       alt={user.fullName}
@@ -212,7 +215,7 @@ export default function AdminUsers() {
                   </td>
                   <td className="td-name">{user.fullName}</td>
                   <td className="td-email">{user.email}</td>
-                  <td className="td-date">{user.bornDate}</td>
+                  <td className="td-date">{formatTimestampToUserDate(user.bornDate)}</td>
                   <td className="td-phone">{user.phone}</td>
                   <td className="td-actions">
                     <button
@@ -360,6 +363,7 @@ export default function AdminUsers() {
                 type="file"
                 accept="image/*"
                 className="form-control"
+                id="image"
                 {...register("image")}
               />
             </div>
