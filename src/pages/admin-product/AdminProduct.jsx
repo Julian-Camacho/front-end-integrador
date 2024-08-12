@@ -80,7 +80,7 @@ export default function AdminProduct() {
     console.log(data);
     reset();
     handleClose()
-    const img = data.image;
+    const img = data.image[0];
     console.log(img);
     const formData = new FormData();
     formData.append("name", data.name);
@@ -91,7 +91,6 @@ export default function AdminProduct() {
     formData.append("image", img);
     formData.append("id", data.id);
 
-    console.log(formData.append("test", "test"));
 
     if (data.id) {
       updateProduct(formData);

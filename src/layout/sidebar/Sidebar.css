@@ -142,7 +142,7 @@
 
     .total {
         display: flex;
-        justify-content: end;
+        justify-content: space-around;
         padding: 1rem;
         border-top: 1px solid #c8e2ff;
         font-weight: bold;
@@ -159,7 +159,24 @@
             }
         }
     }
-}
+
+    .order-finish-button {
+            padding: .5rem 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: var(--secondary-font);
+            font-size: 1rem;
+            transition: background-color .25s ease-in-out;
+
+            &:hover {
+                background-color: var(--secondary-color);
+            }
+        }
+    }
+
 
 @media screen and (width > 1024px){
     .order-wrapper{
