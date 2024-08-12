@@ -17,7 +17,7 @@ export default function Sidebar() {
               <li className="order-item" key={product._id}>
                 <img
                   className="order-picture"
-                  src={`http://localhost:3000/${product.picture}`}
+                  src={`http://localhost:3000/${product.image}`}
                   alt=""
                 />
                 <div className="order-item-name" title={product.name}>

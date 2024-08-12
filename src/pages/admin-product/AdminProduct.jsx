@@ -70,25 +70,28 @@ export default function AdminProduct() {
     setValue("name", producto.name);
     setValue("price", producto.price);
     setValue("category", producto.category._id);
-    setValue("picture", producto.picture.length ? producto.picture : undefined);
+    setValue("image", producto.image);
     setValue("description", producto.description);
     setValue("createdAt", producto.createdAt);
     handleShow();
   }
 
   function onSubmit(data) {
-    
-    console.log(data.picture[0]);
+    console.log(data);
     reset();
-    handleClose();
+    handleClose()
+    const img = data.image;
+    console.log(img);
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("price", +data.price);
     formData.append("category", data.category);
-    formData.append("picture", data.picture[0]);
     formData.append("description", data.description);
     formData.append("createdAt", new Date(data.createdAt).getTime());
+    formData.append("image", img);
     formData.append("id", data.id);
+
+    console.log(formData.append("test", "test"));
 
     if (data.id) {
       updateProduct(formData);
@@ -100,11 +103,12 @@ export default function AdminProduct() {
   async function createProduct(product) {
     try {
       const newProduct = await api.post(`/products`, product);
+      console.log(newProduct);
       getProducts();
       Swal.fire({
         icon: "success",
         title: "¡Listo!",
-        text: `¡${newProduct.data.name} agregado correctamente!`,
+        text: `¡${newProduct.data.newProduct.name} agregado correctamente!`,
         confirmButtonColor: "#2b285b",
       });
     } catch (error) {
@@ -120,14 +124,14 @@ export default function AdminProduct() {
   async function updateProduct(product) {
     try {
       const id = product.get("id")
-      await api.put(`/products/${id}`, product);
+      const test = await api.put(`/products/${id}`, product);
       getProducts();
       setIsEditing(false);
       reset();
       Swal.fire({
         icon: "success",
         title: "¡Listo!",
-        text: `¡El producto ${product.name} ha sido actualizado correctamente!`,
+        text: `¡El producto ${test.data.product.name} ha sido actualizado correctamente!`,
         confirmButtonColor: "#2b285b",
       });
     } catch (error) {
@@ -216,7 +220,7 @@ export default function AdminProduct() {
                   <td className="td-image">
                     <img
                       className="product-image"
-                      src={`http://localhost:3000/${product.picture}`}
+                      src={`http://localhost:3000/${product.image}`}
                       alt="Producto"
                     />
                   </td>
@@ -350,10 +354,10 @@ export default function AdminProduct() {
               />
             </div>
             <div className="input-group">
-              <label htmlFor="picture" className="form-label">
+              <label htmlFor="image" className="form-label">
                 Imagen
               </label>
-              <input type="file" accept="image/*" className="form-control" {...register("picture")} />
+              <input type="file" accept="image/*" className="form-control" {...register("image")} />
             </div>
             <div className="btn-submit-container">
               <button className="cancel-btn" onClick={handleClose}>

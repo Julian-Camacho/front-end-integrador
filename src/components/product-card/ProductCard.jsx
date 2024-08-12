@@ -17,16 +17,14 @@ export default function ProductCard({ product }) {
         <div className="card-header">
           <img
             className="card-img card-image-1"
-            src={`http://localhost:3000/${product.picture}`}
+            src={`http://localhost:3000/${product.image}`}
             alt={product.name}
           />
         </div>
         <div className="card-main">
           <div className="card-top">
             <h4 className="card-category">{product.name}</h4>
-            <span className="card-date">
-              {product.createdAt}
-            </span>
+            <span className="card-date">{product.createdAt}</span>
           </div>
           <h3 className="card-title">{product.name}</h3>
           <p className="card-description">{product.description} </p>

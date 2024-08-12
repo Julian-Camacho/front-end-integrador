@@ -34,7 +34,7 @@ export default function AdminUsers() {
 
   useEffect(() => {
     getUsers();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) {
@@ -61,7 +61,7 @@ export default function AdminUsers() {
 
     // Setear formulario con los datos de mi producto
     setValue("id", usuario._id);
-    setValue("avatar", usuario.avatar);
+    setValue("image", usuario.image);
     setValue("fullName", usuario.fullName);
     setValue("email", usuario.email);
     setValue("phone", usuario.phone);
@@ -71,11 +71,17 @@ export default function AdminUsers() {
   }
 
   function onSubmit(data) {
-    console.log(data);
     reset();
     handleClose();
 
-    data.bornDate = new Date(data.bornDate).getTime();
+    const formData = new FormData();
+    formData.append("image", data.image[0]);
+    formData.append("fullName", data.fullName);
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+    formData.append("phone", data.phone);
+    formData.append("bornDate", new Date(data.bornDate).getTime());
+    formData.append("id", data.id);
 
     if (data.id) {
       updateUser(data);
@@ -86,15 +92,16 @@ export default function AdminUsers() {
 
   async function createUser(usuario) {
     try {
-      const newUser = await api.post(`/users`, usuario);
+      await api.post(`/users`, usuario);
       getUsers();
       Swal.fire({
         icon: "success",
         title: "¡Listo!",
-        text: `${newUser.data.name} ha sido agregado correctamente.`,
+        text: `${usuario.fullName} ha sido agregado correctamente.`,
         confirmButtonColor: "#2b285b",
       });
     } catch (error) {
+      console.log(error);
       Swal.fire({
         icon: "error",
         title: "¡Algo salió mal!",
@@ -106,7 +113,8 @@ export default function AdminUsers() {
 
   async function updateUser(user) {
     try {
-      await api.put(`/users/${user.id}`, user);
+      const id = user.id;
+      await api.put(`/users/${id}`, user);
       getUsers();
       setIsEditing(false);
       reset();
@@ -117,6 +125,7 @@ export default function AdminUsers() {
         confirmButtonColor: "#2b285b",
       });
     } catch (error) {
+      console.log(error);
       Swal.fire({
         icon: "error",
         title: "Algo salió mal!",
@@ -190,8 +199,8 @@ export default function AdminUsers() {
                     <img
                       className="user-avatar"
                       src={
-                        user.avatar
-                          ? user.avatar
+                        user.image
+                          ? user.image
                           : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                       }
                       alt={user.fullName}
@@ -340,13 +349,14 @@ export default function AdminUsers() {
               )}
             </div>
             <div className="input-group">
-              <label htmlFor="avatar" className="form-label">
-                Avatar (URL)
+              <label htmlFor="image" className="form-label">
+                Imagen
               </label>
               <input
-                type="url"
+                type="file"
+                accept="image/*"
                 className="form-control"
-                {...register("avatar")}
+                {...register("image")}
               />
             </div>
             <div className="btn-submit-container">
