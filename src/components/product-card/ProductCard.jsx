@@ -24,7 +24,7 @@ export default function ProductCard({ product }) {
         </div>
         <div className="card-main">
           <div className="card-top">
-            <h4 className="card-category">{product.name}</h4>
+            <h4 className="card-category">{product.category.viewValue}</h4>
             <span className="card-date">
               {formatTimestampToUserDate(product.createdAt)}
             </span>

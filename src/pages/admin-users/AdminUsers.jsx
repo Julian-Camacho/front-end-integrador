@@ -74,9 +74,7 @@ export default function AdminUsers() {
   function onSubmit(data) {
     reset();
     handleClose();
-
-    console.log();
-
+    
     const bornDate = new Date(data.bornDate).getTime();
 
     const formData = new FormData();

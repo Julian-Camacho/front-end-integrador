@@ -17,7 +17,7 @@ export default function AboutUs(){
                 </p>
                 <h2>¿Dónde estamos?</h2>
                 <p>
-                    Nos encontramos en la ciudad de Buenos Aires, en la calle Av. Siempre Viva 123.
+                    Nos encontramos en la ciudad de Buenos Aires, Unicenter, local 3000.
                 </p>
             </div>
         </div>

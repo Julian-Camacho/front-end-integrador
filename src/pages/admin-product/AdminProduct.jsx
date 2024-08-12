@@ -78,11 +78,9 @@ export default function AdminProduct() {
   }
 
   function onSubmit(data) {
-    console.log(data);
     reset();
     handleClose()
     const img = JSON.stringify(data.image[0]);
-    console.log(img);
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("price", +data.price);
@@ -103,7 +101,6 @@ export default function AdminProduct() {
   async function createProduct(product) {
     try {
       const newProduct = await api.post(`/products`, product);
-      console.log(newProduct);
       getProducts();
       Swal.fire({
         icon: "success",
@@ -192,7 +189,7 @@ export default function AdminProduct() {
 
       setCategories(categoriesDB);
     } catch (error) {
-      console.log("Error al obtener categorias:", error);
+      console.log(error);
     }
   }
 
@@ -209,6 +206,7 @@ export default function AdminProduct() {
                 <th>Imagen</th>
                 <th>Producto</th>
                 <th>Descripción</th>
+                <th>Categoría</th>
                 <th>Fecha</th>
                 <th>Precio</th>
                 <th>Acciones</th>
@@ -225,7 +223,8 @@ export default function AdminProduct() {
                     />
                   </td>
                   <td className="td-name">{product.name}</td>
-                  <td className="td-description">{product.description}</td>
+                  <td className="td-description">{product.description}</td>                  
+                  <td className="td-category">{product.category.viewValue}</td>
                   <td className="td-date">{formatTimestampToUserDate(product.createdAt)}</td>
                   <td className="td-price">${product.price}</td>
                   <td className="td-actions">
@@ -249,7 +248,7 @@ export default function AdminProduct() {
             </tbody>
             <tfoot>
               <tr>
-                <td colSpan="6">Panel de administración de productos.</td>
+                <td colSpan="7">Panel de administración de productos.</td>
               </tr>
             </tfoot>
           </table>
