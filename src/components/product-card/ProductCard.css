@@ -63,6 +63,7 @@
 .card-description{
     margin: .5rem 0;
     text-overflow: ellipsis; 
+    line-clamp: 6;
     -webkit-line-clamp: 6;
     -webkit-box-orient: vertical;
     display: -webkit-box;

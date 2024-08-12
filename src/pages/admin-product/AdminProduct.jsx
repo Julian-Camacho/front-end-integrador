@@ -80,7 +80,7 @@ export default function AdminProduct() {
     console.log(data);
     reset();
     handleClose()
-    const img = data.image[0];
+    const img = JSON.stringify(data.image[0]);
     console.log(img);
     const formData = new FormData();
     formData.append("name", data.name);

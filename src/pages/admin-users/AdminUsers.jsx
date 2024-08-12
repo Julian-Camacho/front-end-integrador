@@ -74,30 +74,33 @@ export default function AdminUsers() {
     reset();
     handleClose();
 
+    console.log(data);
+
     const formData = new FormData();
     formData.append("image", data.image[0]);
     formData.append("fullName", data.fullName);
     formData.append("email", data.email);
     formData.append("password", data.password);
-    formData.append("phone", data.phone);
+    formData.append("phone", +data.phone);
     formData.append("bornDate", new Date(data.bornDate).getTime());
     formData.append("id", data.id);
 
     if (data.id) {
-      updateUser(data);
+      updateUser(formData);
     } else {
-      createUser(data);
+      createUser(formData);
     }
   }
 
   async function createUser(usuario) {
     try {
+      const name = usuario.get("fullName");
       await api.post(`/users`, usuario);
       getUsers();
       Swal.fire({
         icon: "success",
         title: "¡Listo!",
-        text: `${usuario.fullName} ha sido agregado correctamente.`,
+        text: `${name} ha sido agregado correctamente.`,
         confirmButtonColor: "#2b285b",
       });
     } catch (error) {
@@ -113,7 +116,8 @@ export default function AdminUsers() {
 
   async function updateUser(user) {
     try {
-      const id = user.id;
+      const id = user.get("id");
+      const name = user.get("fullName");
       await api.put(`/users/${id}`, user);
       getUsers();
       setIsEditing(false);
@@ -121,7 +125,7 @@ export default function AdminUsers() {
       Swal.fire({
         icon: "success",
         title: "¡Listo!",
-        text: `Usuario ${user.fullName} ha sido actualizado correctamente.`,
+        text: `Usuario ${name} ha sido actualizado correctamente.`,
         confirmButtonColor: "#2b285b",
       });
     } catch (error) {
